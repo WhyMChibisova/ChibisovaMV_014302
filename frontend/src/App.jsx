@@ -1,16 +1,18 @@
+import { BrowserRouter as Router } from "react-router-dom"
 import { useState } from 'react'
 import './App.css'
-import OrganizationsList from "./features/organizations/OrganizationsList";
+import NavBar from "./components/NavBar"
+import AppRoutes from "./components/AppRoutes"
 
 function App() {
 
   return (
-    <>
+    <Router>
       <div className="app">
-      <h2>Organizations</h2>
-      <OrganizationsList />
+        <NavBar />
+        <AppRoutes />
       </div>
-    </>
+    </Router>
   )
 }
 
