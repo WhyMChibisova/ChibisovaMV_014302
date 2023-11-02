@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :documents
+  resources :students
+  resources :teachers
+  resources :practices
   get 'sessions/create'
   resources :accounts
   resources :organizations
