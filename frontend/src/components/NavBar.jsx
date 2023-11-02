@@ -5,6 +5,7 @@ function NavBar() {
   return (
     <nav>
       <Link to="/organizations">Предприятия</Link>
+      <Link to="/accounts/new">Регистрация</Link>
     </nav>
   )
 }
