@@ -55,4 +55,12 @@ async function deleteOrganization(id) {
   return response.json();
 }
 
-export { createOrganization, updateOrganization, deleteOrganization,  fetchAllOrganizations, fetchOrganization };
+async function searchOrganizations(query) {
+  const response = await fetch(`http://localhost:3000/search/organizations/?q=${query}`);
+  if(!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+}
+
+export { searchOrganizations, createOrganization, updateOrganization, deleteOrganization,  fetchAllOrganizations, fetchOrganization };

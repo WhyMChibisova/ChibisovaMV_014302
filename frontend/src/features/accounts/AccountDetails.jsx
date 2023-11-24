@@ -11,7 +11,7 @@ function AccountDetails() {
     const fetchCurrentAccount = async () => {
       try {
         const json = await fetchAccount(id);
-        setAccount(json);
+        setAccount(json.account);
       } catch (e) {
         console.error("An error occured: ", e);
       }
@@ -32,6 +32,9 @@ if(!account) return <h2>Загрузка...</h2>;
 
   return (
     <div>
+      {account.photo_url &&
+        <img src={account.photo_url} alt={account.email} className="image" />
+      }
       <h2>{account.email}</h2>
       <p>{account.password}</p>
       <p>{account.role}</p>

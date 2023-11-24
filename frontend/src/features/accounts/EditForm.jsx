@@ -1,14 +1,12 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-function AccountForm({ account, student, headerText, onSubmit, buttonText }) {
+function EditForm({ account, student, headerText, onSubmit, buttonText }) {
   const [formData, setFormData] = useState(
     account || {
       account: {
         email: "",
-        password: "",
-        password_confirmation: "",
-        photo: "",
+        photo: ""
       }
     }
   );
@@ -37,7 +35,7 @@ function AccountForm({ account, student, headerText, onSubmit, buttonText }) {
           id="photo"
           type="file"
           accept="image/*"
-          onChange={(e) => setFormData({ ...formData, account: { ...formData.account, photo: e.target.files[0]} })}
+          onChange={(e) => setFormData({ ...formData, photo: e.target.files[0] })}
         />
       </div>
         <div>
@@ -46,27 +44,7 @@ function AccountForm({ account, student, headerText, onSubmit, buttonText }) {
             id="email"
             type="email"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, account: { ...formData.account, email: e.target.value} })}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Пароль:</label>
-          <input
-            id="password"
-            type="password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, account: { ...formData.account, password: e.target.value} })}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password_confirmation">Подтверждение пароля:</label>
-          <input
-            id="password_confirmation"
-            type="password"
-            value={formData.password_confirmation}
-            onChange={(e) => setFormData({ ...formData, account: { ...formData.account, password_confirmation: e.target.value} })}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
         </div>
@@ -77,7 +55,7 @@ function AccountForm({ account, student, headerText, onSubmit, buttonText }) {
             id="last_name"
             type="text"
             value={studentData.last_name}
-            onChange={(e) => setStudentData({ ...studentData, student: { ...studentData.student, last_name: e.target.value} })}
+            onChange={(e) => setStudentData({ ...studentData, last_name: e.target.value })}
             required
           />
         </div>
@@ -87,7 +65,7 @@ function AccountForm({ account, student, headerText, onSubmit, buttonText }) {
             id="first_name"
             type="text"
             value={studentData.first_name}
-            onChange={(e) => setStudentData({ ...studentData, student: { ...studentData.student, first_name: e.target.value} })}
+            onChange={(e) => setStudentData({ ...studentData, first_name: e.target.value })}
             required
           />
         </div>
@@ -97,7 +75,7 @@ function AccountForm({ account, student, headerText, onSubmit, buttonText }) {
             id="patronymic"
             type="text"
             value={studentData.patronymic}
-            onChange={(e) => setStudentData({ ...studentData, student: { ...studentData.student, patronymic: e.target.value} })}
+            onChange={(e) => setStudentData({ ...studentData, patronymic: e.target.value })}
             required
           />
         </div>
@@ -107,7 +85,7 @@ function AccountForm({ account, student, headerText, onSubmit, buttonText }) {
             id="group_number"
             type="text"
             value={studentData.group_number}
-            onChange={(e) => setStudentData({ ...studentData, student: { ...studentData.student, group_number: e.target.value} })}
+            onChange={(e) => setStudentData({ ...studentData, group_number: e.target.value })}
             required
           />
         </div>
@@ -119,11 +97,12 @@ function AccountForm({ account, student, headerText, onSubmit, buttonText }) {
   );
 }
 
-AccountForm.propTypes = {
+EditForm.propTypes = {
   account: PropTypes.shape({
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     password_confirmation: PropTypes.string.isRequired,
+    photo: PropTypes.string.isRequired,
   }),
   student: PropTypes.shape({
     last_name: PropTypes.string.isRequired,
@@ -141,9 +120,9 @@ AccountForm.propTypes = {
   buttonText: PropTypes.string.isRequired,
 };
 
-AccountForm.defaultProps = {
+EditForm.defaultProps = {
   account: null,
   student: null,
 };
 
-export default AccountForm;
+export default EditForm;

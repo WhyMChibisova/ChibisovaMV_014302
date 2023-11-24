@@ -1,48 +1,50 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: %i[ show edit update destroy ]
+  before_action :set_document, only: %i[ show update destroy ]
 
   # GET /documents
   def index
     @documents = Document.all
+
+    render json: @documents
   end
 
   # GET /documents/1
   def show
+    render json: @document
   end
 
-  # GET /documents/new
-  def new
-    @document = Document.new
-  end
+  # # GET /documents/new
+  # def new
+  #   @document = Document.new
+  # end
 
-  # GET /documents/1/edit
-  def edit
-  end
+  # # GET /documents/1/edit
+  # def edit
+  # end
 
   # POST /documents
   def create
     @document = Document.new(document_params)
 
     if @document.save
-      redirect_to @document, notice: "Document was successfully created."
+      render json: @document, status: :created, location: @document
     else
-      render :new, status: :unprocessable_entity
+      render json: @document.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /documents/1
   def update
     if @document.update(document_params)
-      redirect_to @document, notice: "Document was successfully updated.", status: :see_other
+      render json: @document
     else
-      render :edit, status: :unprocessable_entity
+      render json: @document.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /documents/1
   def destroy
     @document.destroy
-    redirect_to documents_url, notice: "Document was successfully destroyed.", status: :see_other
   end
 
   private

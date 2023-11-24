@@ -1,29 +1,43 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
-import { fetchAllOrganizations } from "../../services/organizationService";
+
+import SearchBar from "../../components/SearchBar";
+import useOrganizationsData from "../../hooks/useOrganizationsData";
+import useURLSearchParam from "../../hooks/useURLSearchParam";
 
 function OrganizationsList() {
   const [organizations, setOrganizations] = useState([]);
-  const [, setLoading] = useState(true);
-  const [, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useURLSearchParam("search");
+
+  const {
+    organizations: fetchedOrganizations,
+    loading,
+    error,
+  } = useOrganizationsData(debouncedSearchTerm);
 
   useEffect(() => {
-    async function loadOrganizations() {
-      try {
-        const data = await fetchAllOrganizations();
-        setOrganizations(data);
-        setLoading(false);
-      } catch (e) {
-        setError(e);
-        setLoading(false);
-      }
+    if (fetchedOrganizations) {
+      setOrganizations(fetchedOrganizations);
     }
-    loadOrganizations();
-  }, []);
+  }, [fetchedOrganizations]);
+
+  const handleImmediateSearchChange = (searchValue) => {
+    setSearchTerm(searchValue);
+  };
+
+  const handleDebouncedSearchChange = (searchValue) => {
+    setDebouncedSearchTerm(searchValue);
+  };
 
   return (
     <div>
-    <h2>Предприятия</h2>
+      <SearchBar
+        value={searchTerm}
+        onSearchChange={handleDebouncedSearchChange}
+        onImmediateChange={handleImmediateSearchChange}
+      />
+      <h2>Предприятия</h2>
       {organizations.map((organization) => (
         <div key={organization.id} className="organization-container">
           <h2>

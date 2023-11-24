@@ -5,12 +5,30 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.all
 
-    render json: @accounts
+    accounts_with_photo = @accounts.map do |account|
+      if account.photo.attached?
+        account.as_json.merge(photo_url: url_for(account.photo))
+      else
+        account.as_json.merge(photo_url: nil)
+      end
+    end
+
+    render json: accounts_with_photo
   end
 
   # GET /accounts/1
   def show
-    render json: @account
+    if @account.photo.attached?
+      render json: {
+        account: @account.as_json.merge(photo_url: url_for(@account.photo)),
+        student: @account.student
+        }
+    else
+      render json: {
+        account: @account.as_json.merge(photo_url: nil),
+        student: @account.student
+        }
+    end
   end
 
   # POST /accounts
@@ -39,6 +57,7 @@ class AccountsController < ApplicationController
 
   # DELETE /accounts/1
   def destroy
+    session.delete(:account_id)
     @account.destroy
   end
 
@@ -50,6 +69,6 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def account_params
-      params.require(:account).permit(:email, :password, :password_confirmation)
+      params.require(:account).permit(:email, :password, :password_confirmation, :photo)
     end
 end

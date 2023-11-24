@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search/organizations'
   resources :documents
   resources :students
   resources :teachers

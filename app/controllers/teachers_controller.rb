@@ -1,48 +1,50 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: %i[ show edit update destroy ]
+  before_action :set_teacher, only: %i[ show update destroy ]
 
   # GET /teachers
   def index
     @teachers = Teacher.all
+
+    render json: @teachers
   end
 
   # GET /teachers/1
   def show
+    render json: @teacher
   end
 
-  # GET /teachers/new
-  def new
-    @teacher = Teacher.new
-  end
-
-  # GET /teachers/1/edit
-  def edit
-  end
+  # # GET /teachers/new
+  # def new
+  #   @teacher = Teacher.new
+  # end
+  #
+  # # GET /teachers/1/edit
+  # def edit
+  # end
 
   # POST /teachers
   def create
     @teacher = Teacher.new(teacher_params)
 
     if @teacher.save
-      redirect_to @teacher, notice: "Teacher was successfully created."
+      render json: @teacher, status: :created, location: @teacher
     else
-      render :new, status: :unprocessable_entity
+      render json: @teacher.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /teachers/1
   def update
     if @teacher.update(teacher_params)
-      redirect_to @teacher, notice: "Teacher was successfully updated.", status: :see_other
+      render json: @teacher
     else
-      render :edit, status: :unprocessable_entity
+      render json: @teacher.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /teachers/1
   def destroy
     @teacher.destroy
-    redirect_to teachers_url, notice: "Teacher was successfully destroyed.", status: :see_other
   end
 
   private

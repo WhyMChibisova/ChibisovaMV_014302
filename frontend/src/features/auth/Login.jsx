@@ -22,7 +22,7 @@ function Login({ handleLogin }) {
     .then(response => {
       if (response.data.logged_in) {
         handleLogin(response.data)
-        navigate("/");
+        navigate(`/accounts/${response.data.account.id}`);
       } else {
         console.error("An error occured: ", e);
       }

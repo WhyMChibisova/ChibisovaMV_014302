@@ -12,10 +12,7 @@ async function createAccount(accountData) {
   const response = await fetch('http://localhost:3000/accounts', {
     method: "POST",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(accountData)
+    body: accountData
   });
   if(!response.ok) {
     throw new Error(response.statusText);
@@ -27,10 +24,7 @@ async function updateAccount(id, accountData) {
   const response = await fetch(`http://localhost:3000/accounts/${id}`, {
     method: "PUT",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(accountData)
+    body: accountData
   })
   if(!response.ok) {
     throw new Error(response.statusText);
