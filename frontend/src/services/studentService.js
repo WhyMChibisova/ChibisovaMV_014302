@@ -60,4 +60,12 @@ async function deleteStudent(id) {
   return response.json();
 }
 
-export { createStudent, updateStudent, deleteStudent, fetchStudent, fetchAllStudents };
+async function searchStudents(query) {
+  const response = await fetch(`http://localhost:3000/search/students/?q=${query}`);
+  if(!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+}
+
+export { createStudent, updateStudent, deleteStudent, fetchStudent, fetchAllStudents, searchStudents };

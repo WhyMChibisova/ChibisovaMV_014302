@@ -57,4 +57,12 @@ async function deleteTeacher(id) {
   return response.json();
 }
 
-export { createTeacher, updateTeacher, deleteTeacher, fetchTeacher, fetchAllTeachers };
+async function searchTeachers(query) {
+  const response = await fetch(`http://localhost:3000/search/teachers/?q=${query}`);
+  if(!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+}
+
+export { createTeacher, updateTeacher, deleteTeacher, fetchTeacher, fetchAllTeachers, searchTeachers };

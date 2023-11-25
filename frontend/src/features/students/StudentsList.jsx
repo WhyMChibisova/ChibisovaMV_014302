@@ -2,27 +2,42 @@ import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import { fetchAllStudents } from "../../services/studentService";
 
+import SearchBar from "../../components/SearchBar";
+import useStudentsData from "../../hooks/useStudentsData";
+import useURLSearchParam from "../../hooks/useURLSearchParam";
+
 function StudentsList() {
   const [students, setStudents] = useState([]);
-  const [, setLoading] = useState(true);
-  const [, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useURLSearchParam("search");
+
+  const {
+    students: fetchedStudents,
+    loading,
+    error,
+  } = useStudentsData(debouncedSearchTerm);
 
   useEffect(() => {
-    async function loadStudents() {
-      try {
-        const data = await fetchAllStudents();
-        setStudents(data);
-        setLoading(false);
-      } catch (e) {
-        setError(e);
-        setLoading(false);
-      }
+    if (fetchedStudents) {
+      setStudents(fetchedStudents);
     }
-    loadStudents();
-  }, []);
+  }, [fetchedStudents]);
+
+  const handleImmediateSearchChange = (searchValue) => {
+    setSearchTerm(searchValue);
+  };
+
+  const handleDebouncedSearchChange = (searchValue) => {
+    setDebouncedSearchTerm(searchValue);
+  };
 
   return (
     <div className="container">
+      <SearchBar
+        value={searchTerm}
+        onSearchChange={handleDebouncedSearchChange}
+        onImmediateChange={handleImmediateSearchChange}
+      />
       <h2 className="title-lg mb">Студенты</h2>
       <div className="item-container">
         {students.map((student) => (
