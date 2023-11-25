@@ -31,17 +31,19 @@ function AccountDetails() {
 if(!account) return <h2>Загрузка...</h2>;
 
   return (
-    <div>
+    <div className="container">
       {account.photo_url &&
         <img src={account.photo_url} alt={account.email} className="image" />
       }
-      <h2>{account.email}</h2>
-      <p>{account.password}</p>
-      <p>{account.role}</p>
-      <div className="button">
-        <button onClick={() => deleteAccountHandler()}>Удалить</button>
+      <h2 className="title mt-lg">Email: {account.email}</h2>
+
+      <div className="item-footer">
+        <p className="mt mb text-lg">{account.role}</p>
       </div>
-      <Link to={`/accounts/${account.id}/edit`}>Редактировать</Link>
+
+      <button onClick={() => deleteAccountHandler()} className="button button-main mt">Удалить</button>
+
+      <Link to={`/accounts/${account.id}/edit`} className="button button-main mt ml">Редактировать</Link>
     </div>
   );
 }

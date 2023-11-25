@@ -22,13 +22,17 @@ function StudentDetails() {
 if(!student) return <h2>Загрузка...</h2>;
 
   return (
-    <div>
-      <p>{student.last_name}</p>
-      <p>{student.first_name}</p>
-      <p>{student.patronymic}</p>
-      <p>{student.group_number}</p>
-      <p>{student.status}</p>
-      <Link to="/students">Назад</Link>
+    <div className="container">
+      <h2 className="title mt">Фамилия: {student.last_name}</h2>
+
+      <div className="item-footer">
+        <p className="mt text-lg">Имя: {student.first_name}</p>
+        <p className="mt text-lg">Отчество: {student.patronymic}</p>
+        <p className="mt text-lg">Номер группы: {student.group_number}</p>
+        <p className="mt mb text-lg">Статус: {student.status}</p>
+      </div>
+
+      <Link to="/students" className="button button-main mt ml">Назад</Link>
     </div>
   );
 }

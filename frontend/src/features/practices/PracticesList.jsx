@@ -22,20 +22,24 @@ function PracticesList() {
   }, []);
 
   return (
-    <div>
-    <h2>Практики</h2>
-      {practices.map((practice) => (
-        <div key={practice.id} className="organization-container">
-          <h2>
-            <Link to={`/practices/${practice.id}`} className="title">
-              {practice.kind}
-            </Link>
-          </h2>
-          <p>{practice.duratation}</p>
-          <p>{practice.hours_per_student}</p>
-        </div>
-      ))}
-      <Link to={'/practices/new'} className="button">Добавить практику</Link>
+    <div className="container">
+      <h2 className="title-lg mb">Практики</h2>
+      <div className="item-container">
+        {practices.map((practice) => (
+          <div key={practice.id} className="item mb">
+            <h2 className="text-bold">
+              <Link to={`/practices/${practice.id}`}>
+                {practice.kind}
+              </Link>
+            </h2>
+            <div className="item-footer">
+              <p className="mt-sm">Продолжительность: {practice.duration}</p>
+              <p className="mt-sm">Часов на студента: {practice.hours_per_student}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Link to={'/practices/new'} className="button button-main mt">Добавить практику</Link>
     </div>
   )
 }

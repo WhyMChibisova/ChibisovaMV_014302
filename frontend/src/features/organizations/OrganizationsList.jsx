@@ -31,26 +31,29 @@ function OrganizationsList() {
   };
 
   return (
-    <div>
+    <div className="container">
       <SearchBar
         value={searchTerm}
         onSearchChange={handleDebouncedSearchChange}
         onImmediateChange={handleImmediateSearchChange}
       />
-      <h2>Предприятия</h2>
-      {organizations.map((organization) => (
-        <div key={organization.id} className="organization-container">
-          <h2>
-            <Link to={`/organizations/${organization.id}`} className="title">
-              {organization.name}
-            </Link>
-          </h2>
-          <p>{organization.email}</p>
-          <p>{organization.address}</p>
-          <p>{organization.description}</p>
-        </div>
-      ))}
-      <Link to={'/organizations/new'} className="button">Добавить предприятие</Link>
+      <h2 className="title-lg mb">Предприятия</h2>
+      <div className="item-container">
+        {organizations.map((organization) => (
+          <div key={organization.id} className="item mb">
+            <h2 className="text-bold">
+              <Link to={`/organizations/${organization.id}`}>
+                {organization.name}
+              </Link>
+            </h2>
+            <div className="item-footer">
+              <p className="mt-sm">Email: {organization.email}</p>
+              <p className="mt-sm">Адрес: {organization.address}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Link to={'/organizations/new'} className="button button-main mt">Добавить предприятие</Link>
     </div>
   )
 }

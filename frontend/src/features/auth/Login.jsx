@@ -31,12 +31,13 @@ function Login({ handleLogin }) {
   };
 
   return (
-    <div>
-      <h2>Авторизация</h2>
+    <div className="container">
+      <h2 className="title-lg mb mt">Авторизация</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className="mt">
+          <label htmlFor="email">Email: </label>
           <input
+            className="form-text-field"
             id="email"
             type="email"
             value={formData.email}
@@ -44,9 +45,10 @@ function Login({ handleLogin }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="password">Пароль:</label>
+        <div className="mt">
+          <label htmlFor="password">Пароль: </label>
           <input
+            className="form-text-field"
             id="password"
             type="password"
             value={formData.password}
@@ -55,7 +57,7 @@ function Login({ handleLogin }) {
           />
         </div>
         <div>
-          <button type="submit">Войти</button>
+          <button type="submit" className="button button-main mt">Войти</button>
         </div>
       </form>
     </div>

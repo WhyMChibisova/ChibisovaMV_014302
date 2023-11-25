@@ -17,8 +17,7 @@ function Home({ loggedIn, handleLogout }) {
 
   return (
     <div>
-      <p>{loggedIn.loggedInStatus}</p>
-      <button onClick={() => handleLogoutClick()}>Выйти</button>
+
     </div>
   );
 }

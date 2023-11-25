@@ -31,15 +31,19 @@ function DocumentDetails() {
 if(!document) return <h2>Загрузка...</h2>;
 
   return (
-    <div>
-      <h2>{document.student_id}</h2>
-      <p>{document.mark}</p>
-      <p>{document.comment}</p>
-      <div className="button">
-        <button onClick={() => deleteDocumentHandler()}>Удалить</button>
+    <div className="container">
+      <h2 className="title mt">Владелец: {document.student_id}</h2>
+
+      <div className="item-footer">
+        <p className="mt text-lg">Отметка: {document.mark}</p>
+        <label class="mt text-lg">Комментарий</label>
+        <textarea class="form-text-area mt-sm" disabled>{document.comment}</textarea>
       </div>
-      <Link to={`/documents/${document.id}/edit`}>Редактировать</Link>
-      <Link to="/documents">Назад</Link>
+
+      <button onClick={() => deleteDocumentHandler()} className="button button-main mt">Удалить</button>
+
+      <Link to={`/documents/${document.id}/edit`} className="button button-main mt ml">Редактировать</Link>
+      <Link to="/documents" className="button button-main mt ml">Назад</Link>
     </div>
   );
 }

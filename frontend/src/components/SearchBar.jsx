@@ -19,8 +19,9 @@ function SearchBar({ value, onSearchChange, onImmediateChange}) {
   };
 
   return (
-    <div>
+    <div className="text-right">
       <input
+        className="form-text-field"
         type="text"
         placeholder="Поиск..."
         value={value}

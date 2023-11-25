@@ -12,15 +12,16 @@ function OrganizationForm({ organization, headerText, onSubmit, buttonText }) {
   );
 
   return (
-    <div>
-      <h2>{headerText}</h2>
+    <div className="container">
+      <h2 className="title-lg mb mt">{headerText}</h2>
       <form onSubmit={(e) => {
         e.preventDefault();
         onSubmit(formData);
       }}>
-        <div>
-          <label htmlFor="name">Название:</label>
+        <div className="mt">
+          <label htmlFor="name">Название: </label>
           <input
+            className="form-text-field"
             id="name"
             type="text"
             value={formData.name}
@@ -28,9 +29,10 @@ function OrganizationForm({ organization, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className="mt">
+          <label htmlFor="email" className="mt">Email: </label>
           <input
+            className="form-text-field"
             id="email"
             type="text"
             value={formData.email}
@@ -38,9 +40,10 @@ function OrganizationForm({ organization, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="address">Адрес:</label>
+        <div className="mt">
+          <label htmlFor="address" className="mt">Адрес: </label>
           <input
+            className="form-text-field"
             id="address"
             type="text"
             value={formData.address}
@@ -48,9 +51,10 @@ function OrganizationForm({ organization, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="description">Описание:</label>
+        <div className="mt">
+          <label htmlFor="description" className="mt">Описание: </label>
           <textarea
+            className="form-text-area"
             id="description"
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -58,7 +62,7 @@ function OrganizationForm({ organization, headerText, onSubmit, buttonText }) {
           />
         </div>
         <div>
-          <button type="submit">{buttonText}</button>
+          <button type="submit" className="button button-main mt">{buttonText}</button>
         </div>
       </form>
     </div>

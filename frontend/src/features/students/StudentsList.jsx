@@ -22,21 +22,25 @@ function StudentsList() {
   }, []);
 
   return (
-    <div>
-    <h2>Студенты</h2>
-      {students.map((student) => (
-        <div key={student.id} className="organization-container">
-          <h2>
-            <Link to={`/students/${student.id}`} className="title">
-              {student.last_name}
-            </Link>
-          </h2>
-          <p>{student.first_name}</p>
-          <p>{student.patronymic}</p>
-          <p>{student.group_number}</p>
-          <p>{student.status}</p>
-        </div>
-      ))}
+    <div className="container">
+      <h2 className="title-lg mb">Студенты</h2>
+      <div className="item-container">
+        {students.map((student) => (
+          <div key={student.id} className="item mb">
+            <h2 className="text-bold">
+              <Link to={`/students/${student.id}`}>
+                {student.last_name}
+              </Link>
+            </h2>
+            <div className="item-footer">
+              <p className="mt-sm">Имя: {student.first_name}</p>
+              <p className="mt-sm">Отчество: {student.patronymic}</p>
+              <p className="mt-sm">Номер группы: {student.group_number}</p>
+              <p className="mt-sm">Статус: {student.status}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

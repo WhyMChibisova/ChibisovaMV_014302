@@ -23,24 +23,26 @@ function EditForm({ account, student, headerText, onSubmit, buttonText }) {
   );
 
   return (
-    <div>
-      <h2>{headerText}</h2>
+    <div className="container">
+      <h2 className="title-lg mb mt">{headerText}</h2>
       <form onSubmit={(e) => {
         e.preventDefault();
         onSubmit(formData, studentData);
       }}>
-      <div>
-        <label htmlFor="photo">Фото профиля:</label>
-        <input
-          id="photo"
-          type="file"
-          accept="image/*"
-          onChange={(e) => setFormData({ ...formData, photo: e.target.files[0] })}
-        />
-      </div>
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className="mt">
+          <label htmlFor="photo">Фото профиля: </label>
           <input
+            className="form-file-field"
+            id="photo"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFormData({ ...formData, photo: e.target.files[0] })}
+          />
+        </div>
+        <div className="mt">
+          <label htmlFor="email">Email: </label>
+          <input
+            className="form-text-field"
             id="email"
             type="email"
             value={formData.email}
@@ -48,10 +50,11 @@ function EditForm({ account, student, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <h2>Личные данные</h2>
-        <div>
-          <label htmlFor="last_name">Фамилия:</label>
+        <h2 className="title-lg mb mt-lg">Личные данные</h2>
+        <div className="mt">
+          <label htmlFor="last_name">Фамилия: </label>
           <input
+            className="form-text-field"
             id="last_name"
             type="text"
             value={studentData.last_name}
@@ -59,9 +62,10 @@ function EditForm({ account, student, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="first_name">Имя:</label>
+        <div className="mt">
+          <label htmlFor="first_name">Имя: </label>
           <input
+            className="form-text-field"
             id="first_name"
             type="text"
             value={studentData.first_name}
@@ -69,9 +73,10 @@ function EditForm({ account, student, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="patronymic">Отчество:</label>
+        <div className="mt">
+          <label htmlFor="patronymic">Отчество: </label>
           <input
+            className="form-text-field"
             id="patronymic"
             type="text"
             value={studentData.patronymic}
@@ -79,9 +84,10 @@ function EditForm({ account, student, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="group_number">Номер группы:</label>
+        <div className="mt">
+          <label htmlFor="group_number">Номер группы: </label>
           <input
+            className="form-text-field"
             id="group_number"
             type="text"
             value={studentData.group_number}
@@ -90,7 +96,7 @@ function EditForm({ account, student, headerText, onSubmit, buttonText }) {
           />
         </div>
         <div>
-          <button type="submit">{buttonText}</button>
+          <button type="submit" className="button button-main mt">{buttonText}</button>
         </div>
       </form>
     </div>

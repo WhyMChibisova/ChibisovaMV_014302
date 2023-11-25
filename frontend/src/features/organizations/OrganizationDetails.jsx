@@ -31,16 +31,20 @@ function OrganizationDetails() {
 if(!organization) return <h2>Загрузка...</h2>;
 
   return (
-    <div>
-      <h2>{organization.name}</h2>
-      <p>{organization.email}</p>
-      <p>{organization.address}</p>
-      <p>{organization.description}</p>
-      <div className="button">
-        <button onClick={() => deleteOrganizationHandler()}>Удалить</button>
+    <div className="container">
+      <h2 className="title mt">Название: {organization.name}</h2>
+
+      <div className="item-footer">
+        <p className="mt text-lg">Email: {organization.email}</p>
+        <p className="mt mb text-lg">Адрес: {organization.address}</p>
+        <label class="mt text-lg">Описание</label>
+        <textarea class="form-text-area mt-sm" disabled>{organization.description}</textarea>
       </div>
-      <Link to={`/organizations/${organization.id}/edit`}>Редактировать</Link>
-      <Link to="/organizations">Назад</Link>
+
+      <button onClick={() => deleteOrganizationHandler()} className="button button-main mt">Удалить</button>
+
+      <Link to={`/organizations/${organization.id}/edit`} className="button button-main mt ml">Редактировать</Link>
+      <Link to="/organizations" className="button button-main mt ml">Назад</Link>
     </div>
   );
 }

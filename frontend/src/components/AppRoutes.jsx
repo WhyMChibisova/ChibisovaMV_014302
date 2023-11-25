@@ -13,6 +13,7 @@ import EditAccountForm from "../features/accounts/EditAccountForm";
 
 import Login from "../features/auth/Login";
 import Home from "./Home";
+import NavBar from "./NavBar";
 
 import PracticesList from "../features/practices/PracticesList";
 import PracticeDetails from "../features/practices/PracticeDetails";
@@ -46,6 +47,7 @@ function AppRoutes() {
 .then(response => {
       if (response.data.logged_in) {
         handleLogin(response)
+        
       } else {
         handleLogout()
       }
@@ -62,6 +64,8 @@ function AppRoutes() {
   }
 
   return (
+    <div>
+    <NavBar loggedIn={loggedIn} handleLogout={handleLogout} />
     <Routes>
       <Route path="/" element={<Home loggedIn={loggedIn} handleLogout={handleLogout} />} />
 
@@ -92,6 +96,7 @@ function AppRoutes() {
       <Route path="/documents/:id/edit" element={<EditDocumentForm />} />
       <Route path="/documents/new" element={<NewDocumentForm />} />
     </Routes>
+    </div>
   );
 }
 export default AppRoutes;

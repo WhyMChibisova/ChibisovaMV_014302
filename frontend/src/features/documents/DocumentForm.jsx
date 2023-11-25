@@ -4,22 +4,23 @@ import PropTypes from "prop-types";
 function DocumentForm({ document, headerText, onSubmit, buttonText }) {
   const [formData, setFormData] = useState(
     document || {
-      student_id: "",
-      mark: 0,
+      student_id: null,
+      mark: null,
       comment: "",
     }
   );
 
   return (
-    <div>
-      <h2>{headerText}</h2>
+    <div className="container">
+      <h2 className="title-lg mb mt">{headerText}</h2>
       <form onSubmit={(e) => {
         e.preventDefault();
         onSubmit(formData);
       }}>
-        <div>
-          <label htmlFor="mark">Отметка:</label>
+        <div className="mt">
+          <label htmlFor="mark">Отметка: </label>
           <input
+            className="form-text-field"
             id="mark"
             type="number"
             value={formData.mark}
@@ -27,9 +28,10 @@ function DocumentForm({ document, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="comment">Комментарий:</label>
+        <div className="mt">
+          <label htmlFor="comment" className="mt">Комментарий: </label>
           <textarea
+            className="form-text-area"
             id="comment"
             value={formData.comment}
             onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
@@ -37,7 +39,7 @@ function DocumentForm({ document, headerText, onSubmit, buttonText }) {
           />
         </div>
         <div>
-          <button type="submit">{buttonText}</button>
+          <button type="submit" className="button button-main mt">{buttonText}</button>
         </div>
       </form>
     </div>

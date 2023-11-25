@@ -31,27 +31,37 @@ function PracticeDetails() {
 if(!practice) return <h2>Загрузка...</h2>;
 
   return (
-    <div>
-      <p>{practice.kind}</p>
-      <p>{practice.duratation}</p>
-      <h2>{practice.hours_per_student}</h2>
-      <h2>Список студентов</h2>
-      {practice.students.map((student) => (
-        <div key={student.id} className="organization-container">
-          <h2>
-            <Link to={`/students`} className="title">
-              {student.id}
-            </Link>
-          </h2>
-          <p>{student.last_name}</p>
-          <p>{student.first_name}</p>
-        </div>
-      ))}
-      <div className="button">
-        <button onClick={() => deletePracticeHandler()}>Удалить</button>
+    <div className="container">
+      <h2 className="title mt">Вид: {practice.kind}</h2>
+
+      <div className="item-footer">
+        <p className="mt text-lg">Продолжительность: {practice.duration}</p>
+        <p className="mt mb text-lg">Часов на студента: {practice.hours_per_student}</p>
       </div>
-      <Link to={`/practices/${practice.id}/edit`}>Редактировать</Link>
-      <Link to="/practices">Назад</Link>
+
+      <div className="container">
+        <h2 className="title mb">Список студентов</h2>
+        <div className="item-container">
+          {practice.students.map((student) => (
+            <div key={student.id} className="item mb">
+              <h2 className="text-bold">
+                <Link to={`/students/${student.id}`} className="title">
+                  Фамилия: {student.id}
+                </Link>
+              </h2>
+              <div className="item-footer">
+                <p className="mt-sm">Имя :{student.last_name}</p>
+                <p className="mt-sm">Отчество: {student.first_name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <button onClick={() => deletePracticeHandler()} className="button button-main mt">Удалить</button>
+
+      <Link to={`/practices/${practice.id}/edit`} className="button button-main mt ml">Редактировать</Link>
+      <Link to="/practices" className="button button-main mt ml">Назад</Link>
     </div>
   );
 }

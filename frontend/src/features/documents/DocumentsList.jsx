@@ -22,18 +22,22 @@ function DocumentsList() {
   }, []);
 
   return (
-    <div>
-    <h2>Документы</h2>
-      {documents.map((document) => (
-        <div key={document.id} className="organization-container">
-          <h2>
-            <Link to={`/documents/${document.id}`} className="title">
-              {document.student_id}
-            </Link>
-          </h2>
-        </div>
-      ))}
-      <Link to={'/documents/new'} className="button">Добавить документ</Link>
+    <div className="container">
+      <h2 className="title-lg mb">Документы</h2>
+      <div className="item-container">
+        {documents.map((document) => (
+          <div key={document.id} className="item mb">
+            <h2 className="text-bold">Владелец: 
+              <Link to={`/documents/${document.id}`}>
+                {document.student_id}
+              </Link>
+            </h2>
+            <div className="item-footer">
+            </div>
+          </div>
+        ))}
+      </div>
+      <Link to={'/documents/new'} className="button button-main mt">Добавить документ</Link>
     </div>
   )
 }

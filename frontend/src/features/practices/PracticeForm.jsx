@@ -5,21 +5,22 @@ function PracticeForm({ practice, headerText, onSubmit, buttonText }) {
   const [formData, setFormData] = useState(
     practice || {
       kind: "",
-      duratation: "",
+      duration: 0,
       hours_per_student: 0,
     }
   );
 
   return (
-    <div>
-      <h2>{headerText}</h2>
+    <div className="container">
+      <h2 className="title-lg mb mt">{headerText}</h2>
       <form onSubmit={(e) => {
         e.preventDefault();
         onSubmit(formData);
       }}>
-        <div>
-          <label htmlFor="kind">Вид:</label>
+        <div className="mt">
+          <label htmlFor="kind">Вид: </label>
           <input
+            className="form-text-field"
             id="kind"
             type="text"
             value={formData.kind}
@@ -27,19 +28,21 @@ function PracticeForm({ practice, headerText, onSubmit, buttonText }) {
             required
           />
         </div>
-        <div>
-          <label htmlFor="duratation">Продолжительность:</label>
+        <div className="mt">
+          <label htmlFor="duration" className="mt">Продолжительность: </label>
           <input
-            id="duratation"
-            type="text"
-            value={formData.duratation}
-            onChange={(e) => setFormData({ ...formData, duratation: e.target.value })}
+            className="form-text-field"
+            id="duration"
+            type="number"
+            value={formData.duration}
+            onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
             required
           />
         </div>
-        <div>
-          <label htmlFor="hours_per_student">Количество часов на студента:</label>
+        <div className="mt">
+          <label htmlFor="hours_per_student">Часов на студента: </label>
           <input
+            className="form-text-field"
             id="hours_per_student"
             type="number"
             value={formData.hours_per_student}
@@ -48,7 +51,7 @@ function PracticeForm({ practice, headerText, onSubmit, buttonText }) {
           />
         </div>
         <div>
-          <button type="submit">{buttonText}</button>
+          <button type="submit" className="button button-main mt">{buttonText}</button>
         </div>
       </form>
     </div>
@@ -58,7 +61,7 @@ function PracticeForm({ practice, headerText, onSubmit, buttonText }) {
 PracticeForm.propTypes = {
   practice: PropTypes.shape({
     kind: PropTypes.string.isRequired,
-    duratation: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired,
     hours_per_student: PropTypes.number.isRequired,
   }),
   headerText: PropTypes.string.isRequired,
