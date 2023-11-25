@@ -39,6 +39,7 @@ function TeachersList() {
           </div>
         ))}
       </div>
+      <Link to={'/teachers/new'} className="button button-main mt">Добавить преподавателя</Link>
     </div>
   )
 }

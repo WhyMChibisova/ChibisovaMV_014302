@@ -21,12 +21,14 @@ class AccountsController < ApplicationController
     if @account.photo.attached?
       render json: {
         account: @account.as_json.merge(photo_url: url_for(@account.photo)),
-        student: @account.student
+        student: @account.student,
+        teacher: @account.teacher
         }
     else
       render json: {
         account: @account.as_json.merge(photo_url: nil),
-        student: @account.student
+        student: @account.student,
+        teacher: @account.teacher
         }
     end
   end
@@ -35,7 +37,11 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.valid?
-      @account.student!
+      if @account.role == "student"
+        @account.student!
+      else
+        @account.teacher!
+      end
     end
 
     if @account.save
@@ -69,6 +75,6 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def account_params
-      params.require(:account).permit(:email, :password, :password_confirmation, :photo)
+      params.require(:account).permit(:email, :password, :password_confirmation, :role, :photo)
     end
 end

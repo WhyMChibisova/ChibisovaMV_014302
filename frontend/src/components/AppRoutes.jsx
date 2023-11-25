@@ -25,6 +25,7 @@ import StudentDetails from "../features/students/StudentDetails";
 
 import TeachersList from "../features/teachers/TeachersList";
 import TeacherDetails from "../features/teachers/TeacherDetails";
+import NewTeacherForm from "../features/teachers/NewTeacherForm";
 
 import DocumentsList from "../features/documents/DocumentsList";
 import DocumentDetails from "../features/documents/DocumentDetails";
@@ -47,7 +48,7 @@ function AppRoutes() {
 .then(response => {
       if (response.data.logged_in) {
         handleLogin(response)
-        
+
       } else {
         handleLogout()
       }
@@ -90,6 +91,7 @@ function AppRoutes() {
 
       <Route path="/teachers" element={<TeachersList loggedIn={loggedIn} />} />
       <Route path="/teachers/:id" element={<TeacherDetails />} />
+      <Route path="/teachers/new" element={<NewTeacherForm />} />
 
       <Route path="/documents" element={<DocumentsList loggedIn={loggedIn} />} />
       <Route path="/documents/:id" element={<DocumentDetails />} />

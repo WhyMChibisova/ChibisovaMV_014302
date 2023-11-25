@@ -4,6 +4,8 @@ import { deleteAccount, fetchAccount } from "../../services/accountService";
 
 function AccountDetails() {
   const [account, setAccount] = useState(null);
+  const [student, setStudent] = useState(null);
+  const [teacher, setTeacher] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -12,6 +14,8 @@ function AccountDetails() {
       try {
         const json = await fetchAccount(id);
         setAccount(json.account);
+        setStudent(json.student);
+        setTeacher(json.teacher);
       } catch (e) {
         console.error("An error occured: ", e);
       }
@@ -40,6 +44,24 @@ if(!account) return <h2>Загрузка...</h2>;
       <div className="item-footer">
         <p className="mt mb text-lg">{account.role}</p>
       </div>
+
+
+        <h2 className="title mt-lg">Личные данные</h2>
+        {student === null
+          ? <div className="item-footer">
+              <p className="mt mb text-lg">Фамилия: {teacher.last_name}</p>
+              <p className="mt mb text-lg">Имя: {teacher.first_name}</p>
+              <p className="mt mb text-lg">Отчество: {teacher.patronymic}</p>
+              <p className="mt mb text-lg">Количество часов: {teacher.quantity_of_hours}</p>
+            </div>
+          : <div className="item-footer">
+              <p className="mt mb text-lg">Фамилия: {student.last_name}</p>
+              <p className="mt mb text-lg">Имя: {student.first_name}</p>
+              <p className="mt mb text-lg">Отчество: {student.patronymic}</p>
+              <p className="mt mb text-lg">Статус: {student.status}</p>
+            </div>
+        }
+
 
       <button onClick={() => deleteAccountHandler()} className="button button-main mt">Удалить</button>
 

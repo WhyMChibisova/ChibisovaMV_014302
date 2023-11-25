@@ -13,6 +13,7 @@ function NewAccountForm() {
     accountData.append("account[email]", formData.account.email);
     accountData.append("account[password]", formData.account.password);
     accountData.append("account[password_confirmation]", formData.account.password_confirmation);
+    accountData.append("account[role]", "student");
     accountData.append("account[photo]", formData.account.photo);
 
     try {
