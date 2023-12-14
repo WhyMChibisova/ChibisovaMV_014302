@@ -1,8 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
+import { FaInfoCircle } from "react-icons/fa";
 import { fetchAllPractices } from "../../services/practiceService";
 
-function PracticesList() {
+function PracticesList({ loggedIn }) {
   const [practices, setPractices] = useState([]);
   const [, setLoading] = useState(true);
   const [, setError] = useState(null);
@@ -11,7 +12,7 @@ function PracticesList() {
     async function loadPractices() {
       try {
         const data = await fetchAllPractices();
-        setPractices(data);
+        setPractices(data.practices);
         setLoading(false);
       } catch (e) {
         setError(e);
@@ -27,19 +28,22 @@ function PracticesList() {
       <div className="item-container">
         {practices.map((practice) => (
           <div key={practice.id} className="item mb">
-            <h2 className="text-bold">
-              <Link to={`/practices/${practice.id}`}>
-                {practice.kind}
-              </Link>
-            </h2>
+            <div className="text-right">
+              <p className="icon"><Link to={`/practices/${practice.id}`}><FaInfoCircle /></Link></p>
+            </div>
+            <h2 className="text-bold">Группа: {practice.group_number}</h2>
             <div className="item-footer">
+              <p className="mt-sm">Вид: {practice.kind}</p>
               <p className="mt-sm">Продолжительность: {practice.duration}</p>
               <p className="mt-sm">Часов на студента: {practice.hours_per_student}</p>
             </div>
           </div>
         ))}
       </div>
-      <Link to={'/practices/new'} className="button button-main mt">Добавить практику</Link>
+      { loggedIn.account.role === "teacher" &&
+      <Link to={'/practices/new'} className="button button-main mt">Добавить практику</Link>}
+      { loggedIn.account.role === "admin" &&
+      <Link to={'/practices/new'} className="button button-main mt ml">Распределить нагрузку</Link>}
     </div>
   )
 }

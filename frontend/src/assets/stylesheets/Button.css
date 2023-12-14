@@ -15,3 +15,39 @@
 .icon {
   font-size: 22px;
 }
+
+.menu-container {
+  position: absolute;
+  left: 170px;
+}
+
+.menu-button {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.menu {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  transition: 0.3s;
+  padding: 20px;
+  background-color: #370617;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-list {
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  list-style-type: none;
+}

@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
-  has_one :teacher
-  has_one :student
+  has_one :teacher, dependent: :destroy
+  has_one :student, dependent: :destroy
   has_secure_password
 
   has_one_attached :photo
@@ -9,5 +9,5 @@ class Account < ApplicationRecord
   validates :email, uniqueness: true
   validates :email, length: { minimum: 4 }
 
-  enum role: %i[student teacher admin]
+  enum role: %i[student teacher admin teacher_report]
 end

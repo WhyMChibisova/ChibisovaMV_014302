@@ -12,7 +12,7 @@ function EditPracticeForm() {
     const fetchCurrentPractice = async () => {
       try {
         const json = await fetchPractice(id);
-        setPractice(json);
+        setPractice(json.practice);
       } catch (e) {
         console.error("An error occured: ", e);
       }

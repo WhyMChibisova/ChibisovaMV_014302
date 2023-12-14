@@ -1,5 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 function OrganizationForm({ organization, headerText, onSubmit, buttonText }) {
   const [formData, setFormData] = useState(
@@ -13,6 +15,7 @@ function OrganizationForm({ organization, headerText, onSubmit, buttonText }) {
 
   return (
     <div className="container">
+      <p className="icon"><Link to="/organizations"><FaArrowLeft /></Link></p>
       <h2 className="title-lg mb mt">{headerText}</h2>
       <form onSubmit={(e) => {
         e.preventDefault();

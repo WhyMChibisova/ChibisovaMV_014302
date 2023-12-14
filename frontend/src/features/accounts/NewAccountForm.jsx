@@ -4,6 +4,8 @@ import { createAccount } from "../../services/accountService";
 import { createStudent } from "../../services/studentService";
 import AccountForm from "./AccountForm";
 
+import { Alert, AlertTitle, AlertIcon, AlertDescription } from "@chakra-ui/alert"
+
 function NewAccountForm() {
   const navigate = useNavigate();
 

@@ -3,5 +3,5 @@ class Student < ApplicationRecord
   belongs_to :practice, optional: true
   belongs_to :teacher, optional: true
   belongs_to :organization, optional: true
-  has_many :document
+  has_many :documents
 end

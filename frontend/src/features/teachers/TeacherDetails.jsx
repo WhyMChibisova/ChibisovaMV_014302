@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { FaArrowLeft, FaPen, FaTrash, FaInfoCircle } from "react-icons/fa";
 import { fetchTeacher } from "../../services/teacherService";
 
 function TeacherDetails() {
@@ -23,6 +24,7 @@ if(!teacher) return <h2>Загрузка...</h2>;
 
   return (
     <div className="container">
+      <p className="icon"><Link to="/teachers"><FaArrowLeft /></Link></p>
       <h2 className="title mt">Фамилия: {teacher.last_name}</h2>
 
       <div className="item-footer">
@@ -31,7 +33,6 @@ if(!teacher) return <h2>Загрузка...</h2>;
         <p className="mt mb text-lg">Количество часов: {teacher.quantity_of_hours}</p>
       </div>
 
-      <Link to="/teachers" className="button button-main mt ml">Назад</Link>
     </div>
   );
 }

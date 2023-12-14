@@ -1,6 +1,12 @@
 .message {
   border: 1px solid #D0D0D0;
   padding: 10px 15px;
+  max-width: 350px;
+}
+
+.message-container {
+  background: #fff;
+  border-radius: 10px;
 }
 
 .message-notice {
@@ -11,4 +17,14 @@
 .message-alert {
   background-color: #FFD2D2;
   border-color: #D00000;
+}
+
+.message-icon {
+  width: 40px;
+}
+
+.message-right {
+  right: 50px;
+  bottom: 50px;
+  position: absolute;
 }

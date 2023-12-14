@@ -1,8 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
+import { MdUpload } from "react-icons/md";
+import { FaInfoCircle } from "react-icons/fa";
 import { fetchAllDocuments } from "../../services/documentService";
 
-function DocumentsList() {
+function DocumentsList({ loggedIn }) {
   const [documents, setDocuments] = useState([]);
   const [, setLoading] = useState(true);
   const [, setError] = useState(null);
@@ -27,17 +29,18 @@ function DocumentsList() {
       <div className="item-container">
         {documents.map((document) => (
           <div key={document.id} className="item mb">
-            <h2 className="text-bold">Владелец: 
-              <Link to={`/documents/${document.id}`}>
-                {document.student_id}
-              </Link>
-            </h2>
+            <div className="text-right">
+              <p className="icon"><Link to={`/documents/${document.id}`}><FaInfoCircle /></Link></p>
+            </div>
+            <h2 className="text-bold">Владелец: {document.student_id}</h2>
             <div className="item-footer">
             </div>
           </div>
         ))}
       </div>
-      <Link to={'/documents/new'} className="button button-main mt">Добавить документ</Link>
+      { loggedIn.account.role === "student" &&
+      <Link to={'/documents/new'} className="button button-main mt"><MdUpload />Загрузить документ</Link>
+      }
     </div>
   )
 }

@@ -55,4 +55,12 @@ async function deletePractice(id) {
   return response.json();
 }
 
-export { createPractice, updatePractice, deletePractice,  fetchAllPractices, fetchPractice };
+async function generateReport(id, user_id) {
+  const response = await fetch(`http://localhost:3000/practices/report/?id=${id}&user_id=${user_id}`);
+  if(!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+}
+
+export { createPractice, updatePractice, deletePractice,  fetchAllPractices, fetchPractice, generateReport };

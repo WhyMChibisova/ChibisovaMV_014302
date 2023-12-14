@@ -16,8 +16,8 @@ function Home({ loggedIn, handleLogout }) {
 
 
   return (
-    <div>
-
+    <div className="container">
+      <h2 className="title-lg mb mt">Добро пожаловать!</h2>
     </div>
   );
 }

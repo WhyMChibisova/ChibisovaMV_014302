@@ -39,8 +39,10 @@ class AccountsController < ApplicationController
     if @account.valid?
       if @account.role == "student"
         @account.student!
-      else
+      elsif @account.role == "teacher"
         @account.teacher!
+      else
+        @account.teacher_report!
       end
     end
 

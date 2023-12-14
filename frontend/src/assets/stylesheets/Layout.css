@@ -1,5 +1,5 @@
 body {
-  /* background-image: url(home.jpg); */
+  background-image: url("../img/anime-school-background.png");
   /* display: flex;
   justify-content: center; */
 }
@@ -11,6 +11,8 @@ body {
 
 .container {
   background: #fff;
+  border-radius: 30px;
+  margin: 80px 150px 0px 150px;
   /* display: flex;
   justify-content: center; */
 }

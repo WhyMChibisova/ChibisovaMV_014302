@@ -32,6 +32,8 @@ import DocumentDetails from "../features/documents/DocumentDetails";
 import NewDocumentForm from "../features/documents/NewDocumentForm";
 import EditDocumentForm from "../features/documents/EditDocumentForm";
 
+import NotFound from "./NotFound";
+
 function AppRoutes() {
   const [loggedIn, setLoggedIn] = useState({
     loggedInStatus: "NOT_LOGGED_IN",
@@ -71,7 +73,7 @@ function AppRoutes() {
       <Route path="/" element={<Home loggedIn={loggedIn} handleLogout={handleLogout} />} />
 
       <Route path="/organizations" element={<OrganizationsList loggedIn={loggedIn} />} />
-      <Route path="/organizations/:id" element={<OrganizationDetails />} />
+      <Route path="/organizations/:id" element={<OrganizationDetails loggedIn={loggedIn} />} />
       <Route path="/organizations/:id/edit" element={<EditOrganizationForm />} />
       <Route path="/organizations/new" element={<NewOrganizationForm />} />
 
@@ -82,7 +84,7 @@ function AppRoutes() {
       <Route path="/sessions/new" element={<Login handleLogin={handleLogin} />} />
 
       <Route path="/practices" element={<PracticesList loggedIn={loggedIn} />} />
-      <Route path="/practices/:id" element={<PracticeDetails />} />
+      <Route path="/practices/:id" element={<PracticeDetails loggedIn={loggedIn} />} />
       <Route path="/practices/:id/edit" element={<EditPracticeForm />} />
       <Route path="/practices/new" element={<NewPracticeForm />} />
 
@@ -94,9 +96,11 @@ function AppRoutes() {
       <Route path="/teachers/new" element={<NewTeacherForm />} />
 
       <Route path="/documents" element={<DocumentsList loggedIn={loggedIn} />} />
-      <Route path="/documents/:id" element={<DocumentDetails />} />
+      <Route path="/documents/:id" element={<DocumentDetails loggedIn={loggedIn} />} />
       <Route path="/documents/:id/edit" element={<EditDocumentForm />} />
       <Route path="/documents/new" element={<NewDocumentForm />} />
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
     </div>
   );
