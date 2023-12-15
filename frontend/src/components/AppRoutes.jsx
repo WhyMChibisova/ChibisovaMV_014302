@@ -49,7 +49,7 @@ function AppRoutes() {
    {withCredentials: true})
 .then(response => {
       if (response.data.logged_in) {
-        handleLogin(response)
+        handleLogin(response.data)
 
       } else {
         handleLogout()

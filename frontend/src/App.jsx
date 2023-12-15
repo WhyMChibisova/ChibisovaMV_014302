@@ -17,7 +17,7 @@ function App() {
   return (
     <Router>
       <div className="wrapper">
-        
+
         <AppRoutes />
       </div>
     </Router>

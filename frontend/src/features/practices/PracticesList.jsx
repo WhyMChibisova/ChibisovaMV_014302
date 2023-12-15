@@ -34,7 +34,7 @@ function PracticesList({ loggedIn }) {
             <h2 className="text-bold">Группа: {practice.group_number}</h2>
             <div className="item-footer">
               <p className="mt-sm">Вид: {practice.kind}</p>
-              <p className="mt-sm">Продолжительность: {practice.duration}</p>
+              <p className="mt-sm">Продолжительность: {practice.duration} недели</p>
               <p className="mt-sm">Часов на студента: {practice.hours_per_student}</p>
             </div>
           </div>

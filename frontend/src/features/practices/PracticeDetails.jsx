@@ -56,7 +56,7 @@ if(!practice) return <h2>Загрузка...</h2>;
 
       <div className="item-footer">
         <p className="mt text-lg">Вид: {practice.kind}</p>
-        <p className="mt mb text-lg">Продолжительность: {practice.duration}</p>
+        <p className="mt mb text-lg">Продолжительность: {practice.duration} недели</p>
         <p className="mt mb text-lg">Часов на студента: {practice.hours_per_student}</p>
         <p className="mt mb text-lg">Дата начала: {practice.start_date}</p>
         <p className="mt mb text-lg">Дата окончания: {practice.end_date}</p>
@@ -80,8 +80,9 @@ if(!practice) return <h2>Загрузка...</h2>;
         </div>
       </div>
 
+      { loggedIn.account.role === "teacher" &&
       <a href={`http://localhost:3000/practices/report/?id=${practice.id}&user_id=${loggedIn.account.id}`} target="_blank" rel="noreferrer noopener"
-        onClick={() => generateReportHandler()} className="button button-main mt">Получить записку</a>
+        onClick={() => generateReportHandler()} className="button button-main mt">Получить записку</a>}
 
     </div>
   );

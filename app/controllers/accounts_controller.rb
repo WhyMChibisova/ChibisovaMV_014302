@@ -19,11 +19,19 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   def show
     if @account.photo.attached?
-      render json: {
-        account: @account.as_json.merge(photo_url: url_for(@account.photo)),
-        student: @account.student,
-        teacher: @account.teacher
-        }
+      if @account.role == "student"
+        render json: {
+          account: @account.as_json.merge(photo_url: url_for(@account.photo)),
+          student: @account.student.as_json.merge(teacher: @account.student.teacher, organization: @account.student.organization, documents: @account.student.documents,),
+          teacher: @account.teacher
+          }
+      else
+        render json: {
+          account: @account.as_json.merge(photo_url: url_for(@account.photo)),
+          student: @account.student,
+          teacher: @account.teacher.as_json.merge(students: @account.teacher.students)
+          }
+      end
     else
       render json: {
         account: @account.as_json.merge(photo_url: nil),

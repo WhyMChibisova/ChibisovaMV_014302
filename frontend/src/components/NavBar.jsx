@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { FaRegUserCircle, FaSignInAlt } from "react-icons/fa";
 import { MdMenuOpen } from "react-icons/md";
@@ -24,6 +24,8 @@ function NavBar({ loggedIn, handleLogout }) {
     if (isOpen) setTimeout(() => setOpen(false), 50);
   });
 
+  if (!loggedIn) return <h2>Загрузка</h2>
+
   return (
     <nav className="navbar">
       <p className="title-sm text-bold"><Link to="/">practiceMe</Link></p>
@@ -38,7 +40,7 @@ function NavBar({ loggedIn, handleLogout }) {
           </ul>
         </div>
       </div>}
-      { loggedIn.account.role === "admin" &&
+      {  loggedIn.account.role === "admin" &&
       <div>
         <p><Link to="/students">Студенты</Link></p>
         <p><Link to="/teachers">Преподаватели</Link></p>
