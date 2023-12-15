@@ -97,8 +97,8 @@ function AppRoutes() {
 
       <Route path="/documents" element={<DocumentsList loggedIn={loggedIn} />} />
       <Route path="/documents/:id" element={<DocumentDetails loggedIn={loggedIn} />} />
-      <Route path="/documents/:id/edit" element={<EditDocumentForm />} />
-      <Route path="/documents/new" element={<NewDocumentForm />} />
+      <Route path="/documents/:id/edit" element={<EditDocumentForm loggedIn={loggedIn} />} />
+      <Route path="/documents/new" element={<NewDocumentForm loggedIn={loggedIn} />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

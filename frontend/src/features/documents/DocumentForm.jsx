@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
-function DocumentForm({ document, headerText, onSubmit, buttonText }) {
+function DocumentForm({ loggedIn, document, headerText, onSubmit, buttonText }) {
   const [formData, setFormData] = useState(
     document || {
       student_id: null,
       mark: null,
       comment: "",
+      document: "",
     }
   );
 
@@ -20,6 +21,18 @@ function DocumentForm({ document, headerText, onSubmit, buttonText }) {
         e.preventDefault();
         onSubmit(formData);
       }}>
+      { loggedIn.account.role === "student" &&
+        <div className="mt">
+          <label htmlFor="document">Документ: </label>
+          <input
+            className="form-file-field"
+            id="document"
+            type="file"
+            accept=".pdf"
+            onChange={(e) => setFormData({ ...formData, document: e.target.files[0] })}
+          />
+        </div>}
+        { (loggedIn.account.role === "teacher" || loggedIn.account.role === "teacher_report") &&
         <div className="mt">
           <label htmlFor="mark">Отметка: </label>
           <input
@@ -28,9 +41,8 @@ function DocumentForm({ document, headerText, onSubmit, buttonText }) {
             type="number"
             value={formData.mark}
             onChange={(e) => setFormData({ ...formData, mark: e.target.value })}
-            required
           />
-        </div>
+        </div>}
         <div className="mt">
           <label htmlFor="comment" className="mt">Комментарий: </label>
           <textarea
@@ -38,7 +50,6 @@ function DocumentForm({ document, headerText, onSubmit, buttonText }) {
             id="comment"
             value={formData.comment}
             onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-            required
           />
         </div>
         <div>

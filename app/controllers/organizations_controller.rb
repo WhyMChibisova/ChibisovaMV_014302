@@ -38,6 +38,34 @@ class OrganizationsController < ApplicationController
     @organization.destroy
   end
 
+  def contract
+    @user = Account.find(params[:user_id])
+    @organization = Organization.find(params[:id])
+    @organization.students << @user.student
+
+    respond_to do |format|
+      format.docx do
+        # Initialize DocxReplace with your template
+        doc = DocxReplace::Doc.new("#{Rails.root}/lib/docx_templates/my_template_contract.docx", "#{Rails.root}/tmp")
+
+        # Replace some variables. $var$ convention is used here, but not required.
+        doc.replace("NAME", @organization.name)
+        doc.replace("START", @user.student.practice.start_date)
+        doc.replace("END", @user.student.practice.end_date)
+        doc.replace("F", @user.student.last_name)
+        doc.replace("I", @user.student.first_name)
+        doc.replace("O", @user.student.patronymic)
+
+        # Write the document back to a temporary file
+        tmp_file = Tempfile.new('word_template_contract', "#{Rails.root}/tmp")
+        doc.commit(tmp_file.path)
+
+        # Respond to the request by sending the temp file
+        send_file tmp_file.path, filename: "#{@user.student.last_name}_договор.docx", type: "application/docx", disposition: 'attachment'
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organization

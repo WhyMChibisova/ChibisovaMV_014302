@@ -17,10 +17,7 @@ async function fetchDocument(id) {
 async function createDocument(documentData) {
   const response = await fetch('http://localhost:3000/documents', {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(documentData)
+    body: documentData
   });
   if(!response.ok) {
     throw new Error(response.statusText);
@@ -28,13 +25,10 @@ async function createDocument(documentData) {
   return response.json();
 }
 
-async function updateDocument(id, documentData) {
-  const response = await fetch(`http://localhost:3000/documents/${id}`, {
+async function updateDocument(id, documentData, user_id) {
+  const response = await fetch(`http://localhost:3000/documents/${id}?user_id=${user_id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(documentData)
+    body: documentData
   })
   if(!response.ok) {
     throw new Error(response.statusText);

@@ -27,7 +27,9 @@ function EditAccountForm() {
     const accountData = new FormData();
 
     accountData.append("account[email]", formData.email);
-    accountData.append("account[photo]", formData.photo);
+    if (formData.photo) {
+      accountData.append("account[photo]", formData.photo);
+    }
 
     try {
       const response = await updateAccount(id, accountData);

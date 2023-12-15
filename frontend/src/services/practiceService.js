@@ -56,7 +56,12 @@ async function deletePractice(id) {
 }
 
 async function generateReport(id, user_id) {
-  const response = await fetch(`http://localhost:3000/practices/report/?id=${id}&user_id=${user_id}`);
+  const response = await fetch(`http://localhost:3000/practices/report/?id=${id}&user_id=${user_id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/docx",
+    }
+  });
   if(!response.ok) {
     throw new Error(response.statusText);
   }

@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get 'search/organizations'
   get 'search/students'
   get 'search/teachers'
+  get 'practices/report', defaults: { format: 'docx' }
+  get 'organizations/contract', defaults: { format: 'docx' }
   resources :documents
   resources :students
   resources :teachers

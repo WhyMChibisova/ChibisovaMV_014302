@@ -63,4 +63,17 @@ async function searchOrganizations(query) {
   return response.json();
 }
 
-export { searchOrganizations, createOrganization, updateOrganization, deleteOrganization,  fetchAllOrganizations, fetchOrganization };
+async function generateContract(id, user_id) {
+  const response = await fetch(`http://localhost:3000/organizations/contract/?id=${id}&user_id=${user_id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/docx",
+    }
+  });
+  if(!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+}
+
+export { searchOrganizations, createOrganization, updateOrganization, deleteOrganization,  fetchAllOrganizations, fetchOrganization, generateContract };

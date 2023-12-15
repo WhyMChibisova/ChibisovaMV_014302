@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { FaArrowLeft, FaPen, FaTrash } from "react-icons/fa";
-import { deleteOrganization, fetchOrganization } from "../../services/organizationService";
+import { generateContract, deleteOrganization, fetchOrganization } from "../../services/organizationService";
 
 function OrganizationDetails({ loggedIn }) {
   const [organization, setOrganization] = useState(null);
@@ -23,6 +23,15 @@ function OrganizationDetails({ loggedIn }) {
   const deleteOrganizationHandler = async () => {
     try {
       await deleteOrganization(organization.id);
+      navigate("/organizations");
+    } catch (e) {
+      console.error("An error occured: ", e);
+    }
+  };
+
+  const generateContractHandler = async () => {
+    try {
+      await generateContract(organization.id, loggedIn.account.id);
       navigate("/organizations");
     } catch (e) {
       console.error("An error occured: ", e);
@@ -51,7 +60,8 @@ if(!organization) return <h2>Загрузка...</h2>;
       </div>
 
       { loggedIn.account.role === "student" &&
-      <button onClick={() => deleteOrganizationHandler()} className="button button-main mt">Получить договор</button>}
+        <a href={`http://localhost:3000/organizations/contract/?id=${organization.id}&user_id=${loggedIn.account.id}`} target="_blank" rel="noreferrer noopener"
+          onClick={() => generateContractHandler()} className="button button-main mt">Получить договор</a>}
 
     </div>
   );

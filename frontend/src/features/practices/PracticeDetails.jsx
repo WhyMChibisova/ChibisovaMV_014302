@@ -80,7 +80,8 @@ if(!practice) return <h2>Загрузка...</h2>;
         </div>
       </div>
 
-      <button onClick={() => generateReportHandler()} className="button button-main mt">Получить записку</button>
+      <a href={`http://localhost:3000/practices/report/?id=${practice.id}&user_id=${loggedIn.account.id}`} target="_blank" rel="noreferrer noopener"
+        onClick={() => generateReportHandler()} className="button button-main mt">Получить записку</a>
 
     </div>
   );

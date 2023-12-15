@@ -32,14 +32,15 @@ function DocumentsList({ loggedIn }) {
             <div className="text-right">
               <p className="icon"><Link to={`/documents/${document.id}`}><FaInfoCircle /></Link></p>
             </div>
-            <h2 className="text-bold">Владелец: {document.student_id}</h2>
+            <h2 className="text-bold">Владелец: {document.student.last_name}</h2>
             <div className="item-footer">
+            <p className="mt-sm">Отметка: {document.mark}</p>
             </div>
           </div>
         ))}
       </div>
       { loggedIn.account.role === "student" &&
-      <Link to={'/documents/new'} className="button button-main mt"><MdUpload />Загрузить документ</Link>
+      <Link to={'/documents/new'} className="button button-main mt"><MdUpload /></Link>
       }
     </div>
   )

@@ -70,7 +70,9 @@ class PracticesController < ApplicationController
     arrived = 0
     late = 0
     not_arrived = 0
+    organizations = Array.new
     @practice.students.each do |student|
+      organizations << student.organization
       sent += 1
       if student.status == "Не прибыл на предприятие"
         not_arrived += 1
@@ -81,12 +83,51 @@ class PracticesController < ApplicationController
       end
     end
 
+    organizations.uniq!
+
     respond_to do |format|
       format.docx do
         # Initialize DocxReplace with your template
-        doc = DocxReplace::Doc.new("#{Rails.root}/lib/docx_templates/my_template.docx", "#{Rails.root}/tmp")
+        doc = DocxReplace::Doc.new("#{Rails.root}/lib/docx_templates/my_template_report.docx", "#{Rails.root}/tmp")
+
+        len = 0
+        organizations.each do |organization|
+          len += 1
+          sent1 = 0
+          arrived1 = 0
+          late1 = 0
+          not_arrived1 = 0
+          organization.students.each do |student|
+            if student.group_number == @practice.group_number
+              sent1 += 1
+              if student.status == "Не прибыл на предприятие"
+                not_arrived1 += 1
+              elsif student.status == "Опоздал на предприятие"
+                late1 += 1
+              else student.status == "Прибыл на предприятие" || "Доработка приказа"
+                arrived1 += 1
+              end
+            end
+          end
+
+          doc.replace("PLACE#{len}", organization.name)
+          doc.replace("S#{len}", sent1)
+          doc.replace("AR#{len}", arrived1)
+          doc.replace("L#{len}", late1)
+          doc.replace("NOT_#{len}", not_arrived1)
+        end
+
+        while len < 31 do
+          len += 1
+          doc.replace("PLACE#{len}", "")
+          doc.replace("S#{len}", "")
+          doc.replace("AR#{len}", "")
+          doc.replace("L#{len}", "")
+          doc.replace("NOT_#{len}", "")
+        end
 
         # Replace some variables. $var$ convention is used here, but not required.
+        doc.replace("START", @practice.start_date)
         doc.replace("SENT", sent)
         doc.replace("ARRIVED", arrived)
         doc.replace("LATE", late)
@@ -97,7 +138,7 @@ class PracticesController < ApplicationController
         doc.commit(tmp_file.path)
 
         # Respond to the request by sending the temp file
-        send_file tmp_file.path, filename: "#{@user.last_name}_докладная_записка.docx", disposition: 'attachment'
+        send_file tmp_file.path, filename: "#{@user.teacher.last_name}_докладная_записка.docx", type: "application/docx", disposition: 'attachment'
       end
     end
   end
