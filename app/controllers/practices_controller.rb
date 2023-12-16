@@ -143,6 +143,50 @@ class PracticesController < ApplicationController
     end
   end
 
+  def distribute
+    @practices = Practice.all
+    @students = Array.new
+    @teachers = Array.new
+    Teacher.all.each do |teacher|
+      if teacher.account.role == "teacher_report"
+        @teachers << teacher
+      end
+    end
+    @practices.each do |practice|
+      @students << practice.students
+    end
+    teachers_hours = 0
+    @teachers.map do |teacher|
+      teachers_hours += teacher.quantity_of_hours
+    end
+    students_hours = 0
+    @practices.map do |practice|
+      students_hours += practice.hours_per_student * practice.students.size()
+    end
+    if teachers_hours < students_hours
+      render json: { status: 500 }
+    end
+    students_per_teacher = (@students.size() / @teachers.size()).floor
+
+    i = 0
+    @teachers.each do |teacher|
+      teacher.students << @students.slice(i, students_per_teacher)
+      teacher.students.each {|student| student.save}
+      i += students_per_teacher
+    end
+    quantity = ((i / students_per_teacher) + 1) * students_per_teacher
+    if quantity < @students.size()
+      @teachers.each do |teacher|
+        if quantity != @students.size()
+          quantity += 1
+          teacher.students << @students[quantity]
+          teacher.students.each {|student| student.save}
+        end
+      end
+    end
+    render json: { status: 200 }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_practice

@@ -68,4 +68,12 @@ async function generateReport(id, user_id) {
   return response.json();
 }
 
-export { createPractice, updatePractice, deletePractice,  fetchAllPractices, fetchPractice, generateReport };
+async function distributeLoad() {
+  const response = await fetch(`http://localhost:3000/practices/distribute`);
+  if(!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+}
+
+export { createPractice, updatePractice, deletePractice,  fetchAllPractices, fetchPractice, generateReport, distributeLoad };
