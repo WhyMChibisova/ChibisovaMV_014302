@@ -13,15 +13,6 @@ class TeachersController < ApplicationController
     render json: @teacher
   end
 
-  # # GET /teachers/new
-  # def new
-  #   @teacher = Teacher.new
-  # end
-  #
-  # # GET /teachers/1/edit
-  # def edit
-  # end
-
   # POST /teachers
   def create
     @teacher = Teacher.new(teacher_params)

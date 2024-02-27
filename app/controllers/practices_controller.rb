@@ -24,15 +24,6 @@ class PracticesController < ApplicationController
     }
   end
 
-  # # GET /practices/new
-  # def new
-  #   @practice = Practice.new
-  # end
-  #
-  # # GET /practices/1/edit
-  # def edit
-  # end
-
   # POST /practices
   def create
     @practice = Practice.new(practice_params)
@@ -153,7 +144,9 @@ class PracticesController < ApplicationController
       end
     end
     @practices.each do |practice|
-      @students << practice.students
+      practice.students.each do |student|
+        @students << student
+      end
     end
     teachers_hours = 0
     @teachers.map do |teacher|
@@ -163,28 +156,31 @@ class PracticesController < ApplicationController
     @practices.map do |practice|
       students_hours += practice.hours_per_student * practice.students.size()
     end
+
     if teachers_hours < students_hours
       render json: { status: 500 }
-    end
-    students_per_teacher = (@students.size() / @teachers.size()).floor
+    else
+      students_per_teacher = (@students.size() / @teachers.size()).floor
 
-    i = 0
-    @teachers.each do |teacher|
-      teacher.students << @students.slice(i, students_per_teacher)
-      teacher.students.each {|student| student.save}
-      i += students_per_teacher
-    end
-    quantity = ((i / students_per_teacher) + 1) * students_per_teacher
-    if quantity < @students.size()
+      i = 0
       @teachers.each do |teacher|
-        if quantity != @students.size()
-          quantity += 1
-          teacher.students << @students[quantity]
-          teacher.students.each {|student| student.save}
+        teacher.students << @students.slice(i, students_per_teacher)
+        teacher.students.each {|student| student.save}
+        i += students_per_teacher
+      end
+      quantity = 0
+      quantity = ((i / students_per_teacher) + 1) * students_per_teacher
+      if quantity < @students.size()
+        @teachers.each do |teacher|
+          if quantity != @students.size()
+            quantity += 1
+            teacher.students << @students[quantity]
+            teacher.students.each {|student| student.save}
+          end
         end
       end
+      render json: { status: 200 }
     end
-    render json: { status: 200 }
   end
 
   private

@@ -27,24 +27,17 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # # GET /documents/new
-  # def new
-  #   @document = Document.new
-  # end
-
-  # # GET /documents/1/edit
-  # def edit
-  # end
-
   # POST /documents
   def create
     @document = Document.new(document_params)
     @account = Account.find(@document.student_id)
     @account.student.documents << @document
 
-    if @document.created_at > @account.student.practice.start_date + 432000
-      @account.student.status = "Опоздал на предприятие"
-      @account.student.save
+    if @document.valid?
+      if @document.created_at > @account.student.practice.start_date + 432000
+        @account.student.status = "Опоздал на предприятие"
+        @account.student.save
+      end
     end
 
     if @document.save

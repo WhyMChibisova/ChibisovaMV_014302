@@ -15,15 +15,6 @@ class StudentsController < ApplicationController
     render json: @student
   end
 
-  # # GET /students/new
-  # def new
-  #   @student = Student.new
-  # end
-  #
-  # # GET /students/1/edit
-  # def edit
-  # end
-
   # POST /students
   def create
     @student = Student.new(student_params)
