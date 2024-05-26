@@ -49,4 +49,12 @@ async function deleteDocument(id) {
   return response.json();
 }
 
-export { createDocument, updateDocument, deleteDocument,  fetchAllDocuments, fetchDocument };
+async function searchDocuments(query) {
+  const response = await fetch(`http://localhost:3000/search/documents/?q=${query}`);
+  if(!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+}
+
+export { createDocument, updateDocument, deleteDocument,  fetchAllDocuments, fetchDocument, searchDocuments };

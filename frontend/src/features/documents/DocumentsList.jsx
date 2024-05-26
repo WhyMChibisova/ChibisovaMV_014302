@@ -2,29 +2,42 @@ import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import { MdUpload } from "react-icons/md";
 import { FaInfoCircle } from "react-icons/fa";
-import { fetchAllDocuments } from "../../services/documentService";
+import SearchBar from "../../components/SearchBar";
+import useDocumentsData from "../../hooks/useDocumentsData";
+import useURLSearchParam from "../../hooks/useURLSearchParam";
 
 function DocumentsList({ loggedIn }) {
   const [documents, setDocuments] = useState([]);
-  const [, setLoading] = useState(true);
-  const [, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useURLSearchParam("search");
+
+  const {
+    documents: fetchedDocuments,
+    loading,
+    error,
+  } = useDocumentsData(debouncedSearchTerm);
 
   useEffect(() => {
-    async function loadDocuments() {
-      try {
-        const data = await fetchAllDocuments();
-        setDocuments(data);
-        setLoading(false);
-      } catch (e) {
-        setError(e);
-        setLoading(false);
-      }
+    if (fetchedDocuments) {
+      setDocuments(fetchedDocuments);
     }
-    loadDocuments();
-  }, []);
+  }, [fetchedDocuments]);
+
+  const handleImmediateSearchChange = (searchValue) => {
+    setSearchTerm(searchValue);
+  };
+
+  const handleDebouncedSearchChange = (searchValue) => {
+    setDebouncedSearchTerm(searchValue);
+  };
 
   return (
     <div className="container">
+      <SearchBar
+        value={searchTerm}
+        onSearchChange={handleDebouncedSearchChange}
+        onImmediateChange={handleImmediateSearchChange}
+      />
       <h2 className="title-lg mb">Документы</h2>
       <div className="item-container">
         {documents.map((document) => (

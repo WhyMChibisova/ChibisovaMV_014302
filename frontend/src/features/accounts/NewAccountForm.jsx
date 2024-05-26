@@ -16,7 +16,9 @@ function NewAccountForm() {
     accountData.append("account[password]", formData.account.password);
     accountData.append("account[password_confirmation]", formData.account.password_confirmation);
     accountData.append("account[role]", "student");
-    accountData.append("account[photo]", formData.account.photo);
+    if (formData.account.photo != "") {
+      accountData.append("account[photo]", formData.account.photo);
+    }
 
     try {
       const response = await createAccount(accountData);

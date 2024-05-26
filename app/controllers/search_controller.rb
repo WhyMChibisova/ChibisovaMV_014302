@@ -16,4 +16,13 @@ class SearchController < ApplicationController
 
     render json: @teachers
   end
+
+  def documents
+    @documents = Document.joins(:student).where('students.last_name LIKE ?', "%#{params[:q]}%")
+    documents_with_student = @documents.map do |document|
+      document.as_json.merge(student: document.student)
+    end
+
+    render json: documents_with_student
+  end
 end

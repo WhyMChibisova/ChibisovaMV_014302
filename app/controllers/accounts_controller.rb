@@ -73,7 +73,7 @@ class AccountsController < ApplicationController
 
   # DELETE /accounts/1
   def destroy
-    session.delete(:account_id)
+    reset_session
     @account.destroy
   end
 

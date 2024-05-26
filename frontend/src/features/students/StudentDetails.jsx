@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { FaArrowLeft, FaPen, FaTrash, FaInfoCircle } from "react-icons/fa";
 import { fetchStudent } from "../../services/studentService";
 
-function StudentDetails() {
+function StudentDetails({ loggedIn }) {
   const [student, setStudent] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -24,7 +24,8 @@ if(!student) return <h2>Загрузка...</h2>;
 
   return (
     <div className="container">
-      <p className="icon"><Link to="/students"><FaArrowLeft /></Link></p>
+      { (loggedIn.account.role === "admin") &&
+      <p className="icon"><Link to="/students"><FaArrowLeft /></Link></p>}
       <h2 className="title mt">Фамилия: {student.last_name}</h2>
 
       <div className="item-footer">

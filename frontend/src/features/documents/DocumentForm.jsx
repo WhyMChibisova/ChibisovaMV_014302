@@ -7,7 +7,7 @@ function DocumentForm({ loggedIn, document, headerText, onSubmit, buttonText }) 
   const [formData, setFormData] = useState(
     document || {
       student_id: null,
-      mark: null,
+      mark: 0,
       comment: "",
       document: "",
     }

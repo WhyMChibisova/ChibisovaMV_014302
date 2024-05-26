@@ -26,6 +26,7 @@ import StudentDetails from "../features/students/StudentDetails";
 import TeachersList from "../features/teachers/TeachersList";
 import TeacherDetails from "../features/teachers/TeacherDetails";
 import NewTeacherForm from "../features/teachers/NewTeacherForm";
+import EditTeacherForm from "../features/teachers/EditTeacherForm";
 
 import DocumentsList from "../features/documents/DocumentsList";
 import DocumentDetails from "../features/documents/DocumentDetails";
@@ -78,8 +79,8 @@ function AppRoutes() {
       <Route path="/organizations/new" element={<NewOrganizationForm />} />
 
       <Route path="/accounts/new" element={<NewAccountForm />} />
-      <Route path="/accounts/:id" element={<AccountDetails />} />
-      <Route path="/accounts/:id/edit" element={<EditAccountForm />} />
+      <Route path="/accounts/:id" element={<AccountDetails loggedIn={loggedIn} handleLogout={handleLogout} />} />
+      <Route path="/accounts/:id/edit" element={<EditAccountForm loggedIn={loggedIn} />} />
 
       <Route path="/sessions/new" element={<Login handleLogin={handleLogin} />} />
 
@@ -89,11 +90,12 @@ function AppRoutes() {
       <Route path="/practices/new" element={<NewPracticeForm />} />
 
       <Route path="/students" element={<StudentsList loggedIn={loggedIn} />} />
-      <Route path="/students/:id" element={<StudentDetails />} />
+      <Route path="/students/:id" element={<StudentDetails loggedIn={loggedIn} />} />
 
       <Route path="/teachers" element={<TeachersList loggedIn={loggedIn} />} />
       <Route path="/teachers/:id" element={<TeacherDetails />} />
       <Route path="/teachers/new" element={<NewTeacherForm />} />
+      <Route path="/teachers/:id/edit" element={<EditTeacherForm loggedIn={loggedIn} />} />
 
       <Route path="/documents" element={<DocumentsList loggedIn={loggedIn} />} />
       <Route path="/documents/:id" element={<DocumentDetails loggedIn={loggedIn} />} />

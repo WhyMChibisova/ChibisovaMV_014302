@@ -39,14 +39,14 @@ if(!document) return <h2>Загрузка...</h2>;
   return (
     <div className="container">
       <p className="icon"><Link to="/documents"><FaArrowLeft /></Link></p>
-      { (loggedIn.account.role === "teacher" || loggedIn.account.role === "teacher_report" || loggedIn.account.id === student.account_id) &&
       <div className="text-right">
-        <p className="mt icon"><Link to={`/documents/${document.id}/edit`}><FaPen /></Link></p>
+      { (loggedIn.account.role === "teacher" || loggedIn.account.role === "teacher_report" || loggedIn.account.id === student.account_id) &&
+        <p className="mt icon"><Link to={`/documents/${document.id}/edit`}><FaPen /></Link></p>}
+      { (loggedIn.account.id === student.account_id) &&
         <p className="mt ml icon">
             <button onClick={() => deleteDocumentHandler()}><FaTrash /></button>
-        </p>
+        </p>}
       </div>
-      }
 
       <h2 className="title mt">Владелец: {student.last_name}</h2>
 

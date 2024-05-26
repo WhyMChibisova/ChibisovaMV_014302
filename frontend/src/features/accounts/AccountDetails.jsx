@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { FaArrowLeft, FaPen, FaTrash, FaInfoCircle } from "react-icons/fa";
 import { deleteAccount, fetchAccount } from "../../services/accountService";
+import axios from "axios";
 
-function AccountDetails() {
+function AccountDetails({ loggedIn, handleLogout }) {
   const [account, setAccount] = useState(null);
   const [student, setStudent] = useState(null);
   const [teacher, setTeacher] = useState(null);
@@ -26,6 +27,12 @@ function AccountDetails() {
 
   const deleteAccountHandler = async () => {
     try {
+      axios.delete('http://localhost:3000/logout', {withCredentials: true})
+      .then(response => {
+        handleLogout();
+        navigate("/");
+      })
+      .catch(error => console.log('api errors:', error))
       await deleteAccount(account.id);
       navigate("/");
     } catch (e) {
@@ -38,7 +45,10 @@ if(!account) return <h2>Загрузка...</h2>;
   return (
     <div className="container">
       <div className="text-right">
-        <p className="mt icon"><Link to={`/accounts/${account.id}/edit`}><FaPen /></Link></p>
+        { (loggedIn.account.role === "student") &&
+        <p className="mt icon"><Link to={`/accounts/${account.id}/edit`}><FaPen /></Link></p>}
+        { (loggedIn.account.role != "student") &&
+        <p className="mt icon"><Link to={`/teachers/${account.id}/edit`}><FaPen /></Link></p>}
         <p className="mt ml icon">
             <button onClick={() => deleteAccountHandler()}><FaTrash /></button>
         </p>

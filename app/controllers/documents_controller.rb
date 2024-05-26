@@ -33,14 +33,12 @@ class DocumentsController < ApplicationController
     @account = Account.find(@document.student_id)
     @account.student.documents << @document
 
-    if @document.valid?
-      if @document.created_at > @account.student.practice.start_date + 432000
-        @account.student.status = "Опоздал на предприятие"
-        @account.student.save
-      end
-    end
-
     if @document.save
+      if @document.created_at.after?(@account.student.practice.start_date + 5.day)
+        @student = Student.find(@account.student.id)
+        @student.status = "Опоздал на предприятие"
+        @student.save
+      end
       render json: @document, status: :created, location: @document
     else
       render json: @document.errors, status: :unprocessable_entity
@@ -50,7 +48,7 @@ class DocumentsController < ApplicationController
   # PATCH/PUT /documents/1
   def update
     @account = Account.find(params[:user_id])
-    if @account.role == "teacher" || @account.role == "teacher_report"
+    if (@account.role == "teacher" || @account.role == "teacher_report") && @document.student.status != "Опоздал на предприятие"
       @document.student.status = "Прибыл на предприятие"
       @document.student.save
     end

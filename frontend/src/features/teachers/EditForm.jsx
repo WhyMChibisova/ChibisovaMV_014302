@@ -1,17 +1,12 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
 
-function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
+function EditForm({ account, teacher, headerText, onSubmit, buttonText }) {
   const [formData, setFormData] = useState(
     account || {
       account: {
         email: "",
-        password: "",
-        password_confirmation: "",
-        role: "teacher",
-        photo: "",
+        photo: ""
       }
     }
   );
@@ -29,7 +24,6 @@ function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
 
   return (
     <div className="container">
-      <p className="icon"><Link to="/teachers"><FaArrowLeft /></Link></p>
       <h2 className="title-lg mb mt">{headerText}</h2>
       <form onSubmit={(e) => {
         e.preventDefault();
@@ -42,7 +36,7 @@ function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
             id="photo"
             type="file"
             accept="image/*"
-            onChange={(e) => setFormData({ ...formData, account: { ...formData.account, photo: e.target.files[0]} })}
+            onChange={(e) => setFormData({ ...formData, photo: e.target.files[0] })}
           />
         </div>
         <div className="mt">
@@ -52,42 +46,9 @@ function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
             id="email"
             type="email"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, account: { ...formData.account, email: e.target.value} })}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
-        </div>
-        <div className="mt">
-          <label htmlFor="password">Пароль: </label>
-          <input
-            className="form-text-field"
-            id="password"
-            type="password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, account: { ...formData.account, password: e.target.value} })}
-            required
-          />
-        </div>
-        <div className="mt">
-          <label htmlFor="password_confirmation">Подтверждение пароля: </label>
-          <input
-            className="form-text-field"
-            id="password_confirmation"
-            type="password"
-            value={formData.password_confirmation}
-            onChange={(e) => setFormData({ ...formData, account: { ...formData.account, password_confirmation: e.target.value} })}
-            required
-          />
-        </div>
-        <div className="mt">
-          <label htmlFor="role">Роль: </label>
-          <select className="form-text-field"
-          id="role"
-          value={formData.role}
-          onChange={(e) => setFormData({ ...formData, account: { ...formData.account, role: e.target.value} })}
-          required>
-            <option value="teacher" className="mt-sm">Ответственный преподаватель</option>
-            <option value="teacher_report" className="mt-sm">Преподаватель</option>
-          </select>
         </div>
         <h2 className="title-lg mb mt-lg">Личные данные</h2>
         <div className="mt">
@@ -97,7 +58,7 @@ function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
             id="last_name"
             type="text"
             value={teacherData.last_name}
-            onChange={(e) => setTeacherData({ ...teacherData, teacher: { ...teacherData.teacher, last_name: e.target.value} })}
+            onChange={(e) => setTeacherData({ ...teacherData, last_name: e.target.value })}
             required
           />
         </div>
@@ -108,7 +69,7 @@ function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
             id="first_name"
             type="text"
             value={teacherData.first_name}
-            onChange={(e) => setTeacherData({ ...teacherData, teacher: { ...teacherData.teacher, first_name: e.target.value} })}
+            onChange={(e) => setTeacherData({ ...teacherData, first_name: e.target.value })}
             required
           />
         </div>
@@ -119,7 +80,7 @@ function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
             id="patronymic"
             type="text"
             value={teacherData.patronymic}
-            onChange={(e) => setTeacherData({ ...teacherData, teacher: { ...teacherData.teacher, patronymic: e.target.value} })}
+            onChange={(e) => setTeacherData({ ...teacherData, patronymic: e.target.value })}
             required
           />
         </div>
@@ -130,7 +91,7 @@ function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
             id="quantity_of_hours"
             type="number"
             value={teacherData.quantity_of_hours}
-            onChange={(e) => setTeacherData({ ...teacherData, teacher: { ...teacherData.teacher, quantity_of_hours: e.target.value} })}
+            onChange={(e) => setTeacherData({ ...teacherData, quantity_of_hours: e.target.value })}
             required
           />
         </div>
@@ -142,12 +103,12 @@ function TeacherForm({ account, teacher, headerText, onSubmit, buttonText }) {
   );
 }
 
-TeacherForm.propTypes = {
+EditForm.propTypes = {
   account: PropTypes.shape({
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     password_confirmation: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
+    photo: PropTypes.string.isRequired,
   }),
   teacher: PropTypes.shape({
     last_name: PropTypes.string.isRequired,
@@ -160,9 +121,9 @@ TeacherForm.propTypes = {
   buttonText: PropTypes.string.isRequired,
 };
 
-TeacherForm.defaultProps = {
+EditForm.defaultProps = {
   account: null,
   teacher: null,
 };
 
-export default TeacherForm;
+export default EditForm;

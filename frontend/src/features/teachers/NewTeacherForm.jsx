@@ -14,7 +14,9 @@ function NewTeacherForm() {
     accountData.append("account[password]", formData.account.password);
     accountData.append("account[password_confirmation]", formData.account.password_confirmation);
     accountData.append("account[role]", formData.account.role);
-    accountData.append("account[photo]", formData.account.photo);
+    if (formData.account.photo != "") {
+      accountData.append("account[photo]", formData.account.photo);
+    }
 
     const teacherFormData = new FormData();
 

@@ -19,6 +19,10 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     @student.account_id = @current_user.id
+    @practice = Practice.find_by('group_number like ?', @student.group_number)
+    if @practice
+      @student.practice_id = @practice.id
+    end
 
     if @student.save
       render json: @student, status: :created, location: @student
